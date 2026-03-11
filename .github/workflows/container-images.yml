@@ -31,6 +31,12 @@ jobs:
           - service: grpc-gw
             image: ghcr.io/chubo-dev/go-coffeeshop-grpc-gw
             dockerfile: docker/Dockerfile-proxy
+          - service: barista
+            image: ghcr.io/chubo-dev/go-coffeeshop-barista
+            dockerfile: docker/Dockerfile-barista
+          - service: kitchen
+            image: ghcr.io/chubo-dev/go-coffeeshop-kitchen
+            dockerfile: docker/Dockerfile-kitchen
           - service: web
             image: ghcr.io/chubo-dev/go-coffeeshop-web
             dockerfile: docker/Dockerfile-web
