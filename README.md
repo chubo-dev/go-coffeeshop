@@ -81,6 +81,9 @@ Enjoy!!!
 
 The details of how to run it can be find at [deployment with Nomad, Consult Connect and Vault](build/README.md).
 
+For the Chubo reference-platform container path, see
+[docs/reference-platform.md](docs/reference-platform.md).
+
 ## Development
 
 ### Clean Domain-driven Design

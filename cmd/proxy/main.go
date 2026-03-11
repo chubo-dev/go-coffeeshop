@@ -17,6 +17,7 @@ import (
 	"golang.org/x/exp/slog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 func newGateway(
@@ -97,8 +98,19 @@ func main() {
 	slog.New(logger.NewLogrusHandler(logrus.StandardLogger()))
 
 	mux := http.NewServeMux()
+	gwMarshaler := &gwruntime.JSONPb{
+		MarshalOptions: protojson.MarshalOptions{
+			UseProtoNames:   false,
+			EmitUnpopulated: true,
+		},
+		UnmarshalOptions: protojson.UnmarshalOptions{
+			DiscardUnknown: true,
+		},
+	}
 
-	gw, err := newGateway(ctx, cfg, nil)
+	gw, err := newGateway(ctx, cfg, []gwruntime.ServeMuxOption{
+		gwruntime.WithMarshalerOption(gwruntime.MIMEWildcard, gwMarshaler),
+	})
 	if err != nil {
 		slog.Error("failed to create a new gateway", err)
 	}
